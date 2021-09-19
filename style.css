@@ -9,28 +9,67 @@ body{
 .container{
     height: 100vh;
     width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #dfe6e9;
+}
+
+.title
+{
+    height: 10%;
+    width: 100%;
+    background-color: #2d3436;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #dfe6e9;
+    font-family: 'Pacifico', cursive;
+}
+
+.video-container{
     position: relative;
+    height: 70%;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
     background-color: rgb(0, 0, 0);
 }
-.video-container{
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-}
+
 video{
-    height: 100%;
     width: 100%;
+}
+
+.filters
+{
+    position: absolute;
+    height: 13rem;
+    width: 5rem;
+    top: 2%;
+    left: 1%;
+    display: flex;
+    flex-direction: column;
+}
+
+.filter
+{
+    
+    flex-grow: 1;
+    border: 1px solid;
+    background-size: cover;
+    background-blend-mode: color-burn;
+    background-image: url(https://free-images.com/md/2692/sunset_countryside_nature_932243.jpg);
 }
 
 .button-container
 {
     position: absolute;
-    top: calc(100%/2 - 70px);
-    right: calc(40%/2 - 70px);
+    bottom: 1%;
+    left: calc(50% - 80px);
     display: flex;
-    flex-direction: column;
-    
 }
 
 button{
@@ -38,10 +77,73 @@ button{
     width: 70px;
     border-radius: 50%;
     border: none;
-    margin-bottom: 20px;
+    margin-left: 10px;
     font-size: 30px !important;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+button:hover{
+    color: #2d3436
+}
+
+.recording
+{
+    color:red !important;
+}
+.animate-capture{
+    animation: snap 2s;
+}
+
+@keyframes snap {
+    0%{
+        transform: rotate(0deg);
+        color: green;
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+.recording-on-container
+{
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 70px;
+}
+.recording-on
+{
+    
+    border-radius: 50%;
+    background-color: red;
+    height: 15px;
+    width: 15px;
+    animation: blink 1s infinite;
+}
+
+h3{
+    display: inline-block;
+    margin: 0;
+    color: red;
+}
+
+@keyframes blink {
+    0%{
+        transform: scale(1);
+    }
+
+    50%{
+        transform: scale(0.8);
+        background-color: rgba(255, 0, 0, 0.267);
+    }
+
+    100%{
+        transform: scale(1);
+    }
 }
