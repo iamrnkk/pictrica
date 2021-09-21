@@ -41,6 +41,7 @@ body{
 
 video{
     width: 100%;
+    transform: scale(1);
 }
 
 .filters
@@ -94,6 +95,10 @@ button{
     z-index: 2;
 }
 
+.not-allowed
+{
+    cursor: not-allowed;
+}
 #capture
 {
     margin-right: 10px;

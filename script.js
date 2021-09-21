@@ -3,37 +3,39 @@ const captureBtn= document.getElementById("capture");
 const videoPlayer= document.querySelector("video");
 const container= document.querySelector(".container");
 const videoPlayerContainer= document.querySelector(".video-container");
-const allFilters= document.querySelectorAll(".filter"); 
-let filterColor;
+const allFilters= document.querySelectorAll(".filter");
+const zoomIn= document.getElementById("zoom-in");
+const zoomOut= document.getElementById("zoom-out");
+
+
+
+let currZoom=1;
+zoomIn.addEventListener("click", function(){
+    if(isRecording) return;
+    currZoom= currZoom+0.1;
+    if(currZoom>3) currZoom=3;
+    videoPlayer.style.transform= `scale(${currZoom})`;
+});
+
+zoomOut.addEventListener("click", function(){
+    if(isRecording) return;
+    currZoom-=0.1
+    if(currZoom<1) currZoom=1;
+    videoPlayer.style.transform= `scale(${currZoom})`;
+});
 
 let chunks= [];
 let videoRecorder;
 
 let isRecording= false;
 
-captureBtn.addEventListener("click",function()
-{
-    captureBtn.classList.add("animate-capture");
-    const canvas= document.createElement("canvas");
-    canvas.width= videoPlayer.videoWidth;
-    canvas.height= videoPlayer.videoHeight;
-
-    const tool= canvas.getContext("2d");
-    tool.drawImage(videoPlayer,0,0);
-    if(filterColor!="")
-    {
-        tool.fillStyle=filterColor;
-        tool.fillRect(0,0,canvas.width,canvas.height);
-    }
-    download(canvas.toDataURL(), "img.png");
-    setTimeout(function(){captureBtn.classList.remove("animate-capture");},2000);
-});
-
 recordBtn.addEventListener("click", function()
 {
     
     if(isRecording) 
     {
+        zoomIn.classList.remove("not-allowed");
+        zoomOut.classList.remove("not-allowed");
         videoPlayerContainer.removeChild(videoPlayerContainer.lastChild);
         recordBtn.classList.remove("recording");
         videoRecorder.stop();
@@ -41,6 +43,10 @@ recordBtn.addEventListener("click", function()
     }
     else
     {
+        zoomIn.classList.add("not-allowed");
+        zoomOut.classList.add("not-allowed");
+        currZoom=1;
+        videoPlayer.style.transform= `scale(${currZoom})`;
         removeFilter();
         filterColor="";
         let recordingOnContainer= document.createElement("div");
@@ -62,9 +68,37 @@ recordBtn.addEventListener("click", function()
 
 });
 
+let filterColor="";
+
+captureBtn.addEventListener("click",function()
+{
+    captureBtn.classList.add("animate-capture");
+    
+    const canvas= document.createElement("canvas");
+    canvas.width= videoPlayer.videoWidth;
+    canvas.height= videoPlayer.videoHeight;
+
+    const tool= canvas.getContext("2d");
+
+    tool.translate(canvas.width / 2,canvas.height / 2);
+    tool.scale(currZoom,currZoom);
+    console.log(currZoom);
+    tool.translate(-canvas.width / 2,-canvas.height / 2);
+    tool.drawImage(videoPlayer,0,0);
+    if(filterColor!="")
+    {
+        tool.fillStyle=filterColor;
+        tool.fillRect(0,0,canvas.width,canvas.height);
+    }
+    download(canvas.toDataURL(), "img.png");
+    setTimeout(function(){captureBtn.classList.remove("animate-capture");},2000);
+});
+
+
 for (const filter of allFilters) {
     filter.addEventListener("click", function(e)
     {
+        if(isRecording) return;
         removeFilter();
         let color= e.currentTarget.style.backgroundColor;
         filterColor=color;
