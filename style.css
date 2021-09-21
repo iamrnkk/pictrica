@@ -62,12 +62,21 @@ video{
     background-size: cover;
     background-blend-mode: color-burn;
     background-image: url(https://free-images.com/md/2692/sunset_countryside_nature_932243.jpg);
+    z-index: 2;
 }
 
-.button-container
+.filter-div
+{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+}
+.snap-container
 {
     position: absolute;
-    bottom: 1%;
+    bottom: 10px;
     left: calc(50% - 80px);
     display: flex;
 }
@@ -77,12 +86,17 @@ button{
     width: 70px;
     border-radius: 50%;
     border: none;
-    margin-left: 10px;
     font-size: 30px !important;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 2;
+}
+
+#capture
+{
+    margin-right: 10px;
 }
 
 button:hover{
@@ -146,4 +160,17 @@ h3{
     100%{
         transform: scale(1);
     }
+}
+
+.options{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    right: 10px;
+}
+.option{
+    margin-bottom: 10px;
+    height: 60px;
+    width: 60px;
+    font-weight: 600;
 }

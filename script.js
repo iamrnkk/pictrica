@@ -3,12 +3,14 @@ const captureBtn= document.getElementById("capture");
 const videoPlayer= document.querySelector("video");
 const container= document.querySelector(".container");
 const videoPlayerContainer= document.querySelector(".video-container");
+const allFilters= document.querySelectorAll(".filter"); 
+let filterColor;
 
 let chunks= [];
 let videoRecorder;
 
 let isRecording= false;
-console.log(videoPlayerContainer);
+
 captureBtn.addEventListener("click",function()
 {
     captureBtn.classList.add("animate-capture");
@@ -18,6 +20,11 @@ captureBtn.addEventListener("click",function()
 
     const tool= canvas.getContext("2d");
     tool.drawImage(videoPlayer,0,0);
+    if(filterColor!="")
+    {
+        tool.fillStyle=filterColor;
+        tool.fillRect(0,0,canvas.width,canvas.height);
+    }
     download(canvas.toDataURL(), "img.png");
     setTimeout(function(){captureBtn.classList.remove("animate-capture");},2000);
 });
@@ -27,8 +34,6 @@ recordBtn.addEventListener("click", function()
     
     if(isRecording) 
     {
-        //console.log(recordingOnContainer.parentNode);
-        
         videoPlayerContainer.removeChild(videoPlayerContainer.lastChild);
         recordBtn.classList.remove("recording");
         videoRecorder.stop();
@@ -36,6 +41,8 @@ recordBtn.addEventListener("click", function()
     }
     else
     {
+        removeFilter();
+        filterColor="";
         let recordingOnContainer= document.createElement("div");
         recordingOnContainer.classList.add("recording-on-container");
             
@@ -55,6 +62,21 @@ recordBtn.addEventListener("click", function()
 
 });
 
+for (const filter of allFilters) {
+    filter.addEventListener("click", function(e)
+    {
+        removeFilter();
+        let color= e.currentTarget.style.backgroundColor;
+        filterColor=color;
+        
+        let filterDiv= document.createElement("div");
+        filterDiv.classList.add("filter-div");
+        filterDiv.style.backgroundColor= color;
+        filterDiv.style.backgroundBlendMode= "color-burn";
+        videoPlayerContainer.append(filterDiv);
+
+    })
+}
 
 
 const promiseToUseCamera= navigator.mediaDevices.getUserMedia({video:true,audio:true});
@@ -87,4 +109,10 @@ function download(link,name){
     a.download = name;
     a.click();
     a.remove();
+}
+
+function removeFilter()
+{
+    let previousFilter= document.querySelector(".filter-div");
+    if(previousFilter) previousFilter.remove();
 }
