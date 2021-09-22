@@ -26,8 +26,120 @@ body{
     font-size: 2rem;
     color: #dfe6e9;
     font-family: 'Pacifico', cursive;
+    box-shadow: 0px 2px 5px 1px #4d4d4d;
+    position: relative;
+    margin-bottom: 20px;
 }
 
+.title span{
+    font-size: 2.5rem;
+    margin-right: 5px;
+    position: absolute;
+    left: 3%;
+}
+
+.title span:hover{
+    cursor: pointer;
+    color: #c8cdcf;
+}
+
+.gallery-container{
+    height: 90%;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    overflow: scroll;
+}
+
+.loader {
+    position: absolute;
+    top: 50%;
+    height: 40px;
+    width: 40px;
+	border: .3em dotted transparent;
+	border-top-color: #2d3436 ;
+	border-right-color: #2d3436;
+	border-radius: 50%;
+	animation: 1s loader linear infinite;
+}
+
+@keyframes loader {
+	0% {
+		transform: rotate(0deg) scale(0.8);
+		border-radius: 50%;
+        opacity: 1;
+	}
+	
+	50% {
+		transform : rotate(180deg) scale(1);
+        border-radius: 50%;
+        opacity: 0.1;
+	}
+	100% {
+		transform: rotate(360deg) scale(0.8);
+		border-radius: 50%;
+        opacity: 1;
+	}
+}
+
+.media-card
+{
+    height: 18rem;
+    width: 20rem;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    margin-left: 2px;
+    box-shadow: 0px 2px 5px 1px #4d4d4d;
+    border-top-left-radius: 5%;
+    border-top-right-radius: 5%;
+}
+
+.media-container
+{
+    height: 80%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 5%;
+    border-top-right-radius: 5%;
+}
+
+.media-container img
+{
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: 5%;
+    border-top-right-radius: 5%;
+}
+
+.media-container video
+{
+    border-top-left-radius: 5%;
+    border-top-right-radius: 5%;
+}
+.media-option
+{
+    height: 20%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 30px;
+    background-color: #2d3436;
+    color: #dfe6e9;
+    box-shadow: inset 0px 0px 0px 1px #4d4d4d;
+}
+
+.media-option:hover
+{
+    cursor: pointer;
+    color:#ffffff;
+    background-color: #1c1d1d;
+}
 .video-container{
     position: relative;
     height: 70%;
@@ -37,6 +149,7 @@ body{
     justify-content: center;
     overflow: hidden;
     background-color: rgb(0, 0, 0);
+    box-shadow: 0px 2px 5px 1px #4d4d4d;
 }
 
 video{
@@ -95,10 +208,26 @@ button{
     z-index: 2;
 }
 
+#gallery-btn
+{
+    position: absolute;
+    top: 90px;
+    left: 15px;
+    color: #DFE6E9;
+    background-color: #2D3436;
+    box-shadow: 0px 2px 5px 1px #4d4d4d;
+}
+
+#gallery-btn:hover{
+    background-color: #1c1d1d;
+    color: white;
+}
+
 .not-allowed
 {
     cursor: not-allowed;
 }
+
 #capture
 {
     margin-right: 10px;

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pictrica</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <span class="material-icons">camera</span>
+            Your gallery
+        </div>
+        <div class="gallery-container">
+            <div class="loader"></div>
+            <!-- <div class="media-option">Oops! looks like there's no media present.</div> -->
+        </div>
+    </div>
+    
+    <script src="dbScript.js"></script>
+    <script>
+
+        document.querySelector(".title span").addEventListener("click", function () {
+            location.assign("index.html");
+        });
+        setTimeout(function() {
+            document.querySelector(".loader").remove();
+            viewMedia();
+        }, 2000);
+        
+    </script>
+</body>
+</html>

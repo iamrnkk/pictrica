@@ -6,7 +6,7 @@ const videoPlayerContainer= document.querySelector(".video-container");
 const allFilters= document.querySelectorAll(".filter");
 const zoomIn= document.getElementById("zoom-in");
 const zoomOut= document.getElementById("zoom-out");
-
+const galleryBtn= document.getElementById("gallery-btn");
 
 
 let currZoom=1;
@@ -90,7 +90,7 @@ captureBtn.addEventListener("click",function()
         tool.fillStyle=filterColor;
         tool.fillRect(0,0,canvas.width,canvas.height);
     }
-    download(canvas.toDataURL(), "img.png");
+    saveMedia(canvas.toDataURL());
     setTimeout(function(){captureBtn.classList.remove("animate-capture");},2000);
 });
 
@@ -112,6 +112,9 @@ for (const filter of allFilters) {
     })
 }
 
+galleryBtn.addEventListener("click", function () {
+   location.assign("gallery.html"); 
+});
 
 const promiseToUseCamera= navigator.mediaDevices.getUserMedia({video:true,audio:true});
 
@@ -126,24 +129,15 @@ promiseToUseCamera
 
     videoRecorder.addEventListener("stop",function() {
        const blob = new Blob(chunks , {type: "video/mp4"});
+       saveMedia(blob);
        chunks=[];
        
-       const link = URL.createObjectURL(blob);
-       download(link,"video.mp4");
     });
 })
 .catch(function(){
     console.log("user denied access!");
 });
 
-
-function download(link,name){
-    const a=  document.createElement("a");
-    a.href= link;
-    a.download = name;
-    a.click();
-    a.remove();
-}
 
 function removeFilter()
 {
